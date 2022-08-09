@@ -1,1 +1,1 @@
-<div>Badjokes</div>
+<div>Which joke is the worst?</div>

@@ -1,1 +1,1 @@
-<div>pokedex</div>
+<div>Pokedex</div>
