@@ -1,27 +1,23 @@
-import { Query } from "./query";
+import type { Query } from "./query";
 
-const base = 'https://api.realworld.io/api';
-
-async function send( method: string, path: string, token: string, data: string ) {
-	let opts = new Query(method);
-
-	if(data != null || data != undefined || data != "") {
-		opts.headers['Content-Type'] = 'application/json';
-		opts.body = data;
-	}
+async function send(query: Query) {
+	// if(data != null || data != undefined || data != "") {
+	// 	opts.headers['Content-Type'] = 'application/json';
+	// 	opts.body = data;
+	// }
     
-	if(token != null || token != undefined || token != "") {
-		opts.headers['Authorization'] = `Token ${token}`;
-	}
+	// if(token != null || token != undefined || token != "") {
+	// 	opts.headers['Authorization'] = `Token ${token}`;
+	// }
 
-	return fetch(`${base}/${path}`, opts)
+	return fetch(`${query.base}/${query.path}`, query.queryParams)
 		.then((r) => r.text())
 		.then((json) => {
 			try {
 				var resParsed = JSON.parse(json);
 
 				if (resParsed?.status === 'error') {
-					console.log(`API response error from ${base}/${path}: ${json}`);
+					console.log(`API response error from ${query.base}/${query.path}: ${json}`);
 				}
 
 				return resParsed;
@@ -31,6 +27,6 @@ async function send( method: string, path: string, token: string, data: string )
 		});
 }
 
-export function get(path: string, token: string) {
-	return send('GET', path, token, "");
+export async function get(query : Query) {
+	return send(query);
 }
