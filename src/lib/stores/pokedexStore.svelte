@@ -1,9 +1,10 @@
 <script lang="ts">
+    import type { Pokeman } from "../jsonConverters/pokemanConverter";
     import { onMount } from "svelte";
     import { Query } from "$lib/api/query";
     import { writable } from "svelte/store";
     import { get } from "../api/api"
-    import { Pokeman, Convert } from "../jsonConverters/pokemanConverter"
+    import { Convert } from "../jsonConverters/pokemanConverter"
     import { randomNumber } from "$lib/generators/randomNumber";
 
     export const pokeman1 = writable<Pokeman>();
@@ -15,17 +16,18 @@
     query.base = "https://pokeapi.co/api/v2/pokemon";
     query.body = "";
 
-    async function createPokemon() {
+    export async function createPokemon() {
         query.path = randomNumber(1, 151, -1).toString();
         const res = await get(query);
         query.path = randomNumber(1, 151, Number.parseInt(query.path)).toString();
         const res2 = await get(query);
+        
         const parsedData = res.results.map((result: any) => {
             try {
                 let action = Convert.toPokeman(JSON.stringify(result));
                 return action;
             } catch (error) {
-                console.log('Action error', error);
+                console.log('Pokeman error: ', error);
             }
         }, []);
 
@@ -34,7 +36,7 @@
                 let action = Convert.toPokeman(JSON.stringify(result));
                 return action;
             } catch (error) {
-                console.log('Action error', error);
+                console.log('Pokeman error', error);
             }
         }, []);
 
