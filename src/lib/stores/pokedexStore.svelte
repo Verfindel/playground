@@ -1,22 +1,31 @@
 <script lang="ts" context="module">
+    import type { Pokemon } from "pokenode-ts";
     import { PokemonClient } from "pokenode-ts";
     import { writable } from "svelte/store";
+    import { randomNumber, getRandomInt } from "$lib/generators/randomNumber";
 
     const client = new PokemonClient();
 
-    export const pokeman1 = writable<Pokemon>();
-    export const pokeman2 = writable<Pokemon>();
-</script>
+    export const pokestore1 = writable<Pokemon>();
+    export const pokestore2 = writable<Pokemon>();
 
-<script lang="ts">
-    import type { Pokemon } from "pokenode-ts";
-    import { randomNumber } from "$lib/generators/randomNumber";
+    export async function populatePokemonStores() {
+        let pokeman1 = await client.getPokemonById(getRandomInt(151, undefined));
+        let pokeman2 = await client.getPokemonById(getRandomInt(151, pokeman1.id));
 
-    export async function createPokemon() {
-        let pokemon1 = await client.getPokemonById(randomNumber(1, 151, -1));
-        let pokemon2 = await client.getPokemonById(randomNumber(1, 151, pokemon1.id));
+        pokestore1.set(pokeman1);
+        pokestore2.set(pokeman2);
+    }
 
-        pokeman1.set(pokemon1);
-        pokeman2.set(pokemon2);
+    export async function populatePokemonStore1(id: number) {
+        let pokeman1 = await client.getPokemonById(getRandomInt(151, id));
+
+        pokestore1.set(pokeman1);
+    }
+
+    export async function populatePokemonStore2(id: number) {
+        let pokeman2 = await client.getPokemonById(getRandomInt(151, id));
+
+        pokestore2.set(pokeman2);
     }
 </script>

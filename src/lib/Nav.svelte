@@ -1,18 +1,12 @@
-<nav>
-    <a href="/">Home</a>
-    <a href="/badjokes">Badjokes</a>
-    <a href="/pokedex">Pokedex</a>
-</nav>
+<script lang="ts">
+    import { Navbar, NavLi, NavUl, NavHamburger } from 'flowbite-svelte'
+</script>
 
-<style>
-    nav {
-        display: flex;
-        align-items: center;
-        background-color: black;
-    }
-    a {
-        padding: 0.5rem 1rem;
-        text-decoration: none;
-        color: white;
-    }
-</style>
+<Navbar let:hidden let:toggle>
+	<NavHamburger on:click={toggle} />
+	<NavUl {hidden}>
+		<NavLi href="/" active={true}>Home</NavLi>
+		<NavLi href="/badjokes">Bad Jokes</NavLi>
+		<NavLi href="/pokedex">Pokedex</NavLi>
+	</NavUl>
+</Navbar>
