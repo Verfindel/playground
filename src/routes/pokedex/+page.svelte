@@ -15,7 +15,7 @@
 
 <h5 class="center">Pokedex</h5>
 {#if $pokemon1 && $pokemon2}
-<Card padding="md" size="xl" class="grid md:grid-cols-2 center">
+<Card padding="md" size="xl" class="grid md:grid-cols-2 center border-0">
     <Pokemon1 />
     <Pokemon2 />
 </Card>
