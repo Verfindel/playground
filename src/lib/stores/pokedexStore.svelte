@@ -2,7 +2,7 @@
     import type { Pokemon } from "pokenode-ts";
     import { PokemonClient } from "pokenode-ts";
     import { writable } from "svelte/store";
-    import { randomNumber, getRandomInt } from "$lib/generators/randomNumber";
+    import { getRandomInt } from "$lib/generators/randomNumber";
 
     const client = new PokemonClient();
 
