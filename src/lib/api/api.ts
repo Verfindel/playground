@@ -1,14 +1,6 @@
 import type { Query } from "./query";
 
 async function send(query: Query) {
-	// if(data != null || data != undefined || data != "") {
-	// 	opts.headers['Content-Type'] = 'application/json';
-	// 	opts.body = data;
-	// }
-    
-	// if(token != null || token != undefined || token != "") {
-	// 	opts.headers['Authorization'] = `Token ${token}`;
-	// }
 
 	return fetch(`${query.base}/${query.path}`, query.queryParams)
 		.then((r) => r.text())
