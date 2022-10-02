@@ -1,5 +1,5 @@
 <script>
-	import { Avatar, Heading, Listgroup, ListgroupItem } from "flowbite-svelte";
+	import { Avatar, Listgroup, ListgroupItem } from "flowbite-svelte";
     import { pokemonStore, selectedPokemon } from "$lib/stores/pokedexStore";
 
     $: numberOfPokemonLoaded = $pokemonStore.length;
