@@ -8,7 +8,9 @@
     <div class="list-item">
         <GenerationSelector />
     </div>
+    <div class="list-item overflow-auto scrollbar">
         <PokemonSelector />
+    </div>
     <div>
         <PokemonDetails class="list-item"/>
     </div>

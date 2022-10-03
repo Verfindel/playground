@@ -1,11 +1,14 @@
 <script lang="ts">
-    import { Navbar, NavLi, NavUl, NavHamburger } from 'flowbite-svelte'
+    import { Navbar, NavLi, NavUl } from 'flowbite-svelte'
+	import { page } from '$app/stores';
+
+	$: activeUrl = $page.url.pathname;
 </script>
 
 <Navbar>
 	<NavUl>
-		<NavLi href="/">Home</NavLi>
-		<NavLi href="/badjokes">Bad Jokes</NavLi>
-		<NavLi href="/pokedex">Pokedex</NavLi>
+		<NavLi href="/" active={activeUrl === "/"} >Home</NavLi>
+		<NavLi href="/badjokes" active={activeUrl === "/badjokes"} >Bad Jokes</NavLi>
+		<NavLi href="/pokedex" active={activeUrl === "/pokedex"} >Pokedex</NavLi>
 	</NavUl>
 </Navbar>
