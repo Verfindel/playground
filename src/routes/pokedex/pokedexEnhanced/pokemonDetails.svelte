@@ -1,9 +1,17 @@
 <script lang="ts">
-    import { selectedPokemon } from "$lib/stores/pokedexStore";
+    import { selectedPokemon, chosenPokemon } from "$lib/stores/pokedexStore";
 	import { Avatar, Button, Card, Dropdown, DropdownItem, Heading, ToolbarButton } from "flowbite-svelte";
 
+    function addChosenPokemon() {
+        chosenPokemon.update((chosenPokemon) => {
+            chosenPokemon.push($selectedPokemon);
+            return chosenPokemon;
+        });
+    }
+
     $: pokemon = $selectedPokemon;
-    $: pokemon, console.log(pokemon);
+    // $: pokemon, console.log(pokemon);
+	$: pokemon, console.log(pokemon ? JSON.stringify(pokemon.types) ?? "No types": "No pokemon");
 </script>
 
 {#if pokemon && pokemon.id > 0}
@@ -20,11 +28,11 @@
             </Dropdown>
             </div>
             <div class="flex flex-col items-center pb-4">
-            <Avatar size="lg" src="{pokemon.sprites.front_default ??  undefined}" />
+                <Avatar size="lg" src="{pokemon.sprites.front_default ??  undefined}" />
                 <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{pokemon.name}</h5>
                 <span class="text-sm text-gray-500 dark:text-gray-400">{pokemon.species.name}</span>
                 <div class="flex mt-4 space-x-3 lg:mt-6">
-                <Button>Add Pokemon</Button>
+                <Button on:click={addChosenPokemon}>Add Pokemon</Button>
                 <Button color="light" class="dark:text-white">Message</Button>
                 </div>
             </div>

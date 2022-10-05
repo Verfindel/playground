@@ -1,7 +1,7 @@
 <script lang="ts">
-	import PokemonDetails from "./pokemonDetails.svelte";
-	import GenerationSelector from "./generationSelector.svelte";
-	import PokemonSelector from "./pokemonSelector.svelte";
+	import PokemonDetails from "./PokemonDetails.svelte";
+	import GenerationSelector from "./GenerationSelector.svelte";
+	import PokemonSelector from "./PokemonSelector.svelte";
 </script>
 
 <div class="container">
