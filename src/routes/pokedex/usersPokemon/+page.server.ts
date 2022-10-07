@@ -1,49 +1,79 @@
-import type { RequestEvent } from '@sveltejs/kit';
+import type { RequestEvent, Actions } from '@sveltejs/kit';
 import { supabase } from '$lib/clients/supabaseClient';
+import { chosenPokemon } from '$lib/stores/pokedexStore';
+import { get } from 'svelte/store';
+import { error as svelteError } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
 
-/** @type {import('./$types').Actions} */
-export const actions = {
-    login: async (event: RequestEvent) => {
-        try {
-            const loginInfo = await event.request.formData();
-            const email = loginInfo.get('email') as string;
-            const { error } = await supabase.auth.signIn({ email })
-            
-            if (error) 
-                throw error;
-                
-            alert('Check your email for the login link!');
-        } catch (error: any) {
-            alert(error.error_description || error.message);
-        } finally {
-            return { success: true };
-        }
-    },
+export const load : PageServerLoad = async () => {
+    const { data, error } = await supabase.from('pokemon').select();
+    
+    if (data) {
+        chosenPokemon.set(JSON.parse(JSON.stringify(data)));
+        return;
+    }
+    
+    throw svelteError(parseInt(error.code), error.message);
+}
+
+export const actions : Actions = {    
 	registerPokemon: async (event : RequestEvent) => {
+        let success = false;
+        let returnedError : string | undefined;
+        let successResponse : string | undefined;
         try {
-            const user = supabase.auth.user();
-            if (!user) 
-                throw new Error('You must be logged in to register a pokemon');
+            console.log(event);
             let data = await event.request.formData();
-            let pokemonId = data.get('pokemonId') as string;
-            let pokemonData = data.get('pokemonData') as string;
+            console.log(data);
+            let pokemonId = parseInt(data.get('pokemonId') as string);
+            console.log(pokemonId);
+            let pokemonData = JSON.stringify(get(chosenPokemon).find(pokemon => pokemon.id == pokemonId));
+            console.log(get(chosenPokemon));
+
+            // Can be seen in the debug console, but not in the client
             console.log(pokemonData);
+
             const updates = {
                 id: pokemonId,
                 pokemonData: pokemonData,
                 updated_at: new Date(),
             };
       
-            let { error } = await supabase.from('pokemon').upsert(updates, {
-              returning: 'minimal', // Don't return the value after inserting
-            });
+            let { error } = await supabase.from('pokemon').upsert(updates);
       
-            if (error) 
-                throw error;
+            if (error) {
+                console.log(error);
+                success = false;
+                returnedError = error.message;
+                throw svelteError(parseInt(error.code), error.message);
+            } else {
+                successResponse = 'Pokemon registered!';
+                success = true;
+            }
         } catch (error: any) {
-            throw error;
+            console.log(error);
+            success = false;
+            returnedError = error.message;
+            throw svelteError(parseInt(error.code), error.message);
         } finally {
-            return { success: true };
+            return { success: success, returnedError };
+        }
+	},
+    removePokemon: async (event : RequestEvent) => {
+        try {            
+            let data = await event.request.formData();
+            let pokemonId = parseInt(data.get('pokemonId') as string);
+      
+            let { error } = await supabase.from('pokemon').delete().eq('id', pokemonId);
+      
+            if (error) {
+                throw svelteError(parseInt(error.code), error.message);
+            } else {
+                chosenPokemon.update(pokemon => pokemon.filter(pokemon => pokemon.id !== pokemonId));
+            }
+        } catch (error: any) {
+            throw svelteError(parseInt(error.code), error.message);
         }
 	}
+
 };

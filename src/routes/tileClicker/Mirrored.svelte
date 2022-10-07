@@ -30,8 +30,7 @@
                     let mirroredTileId = parseInt(tile.id) + 9;
                     let mirroredTile = document.getElementById(mirroredTileId.toString()) as HTMLElement;
                     mirroredTile?.classList.add("selected");
-
-                    console.log("in interval");
+                    
                     if(tiles.indexOf(tile) === tiles.length - 1) {
                         triggered = true;
                     }

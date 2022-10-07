@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store'
 import type { NamedAPIResource } from "pokenode-ts";
-import { browser } from "$app/env";
+import { browser } from "$app/environment";
 
 export const generationResource = writable<NamedAPIResource[]>(browser ? JSON.parse(localStorage.getItem('namedAPIResource')??'{}'): {})
 

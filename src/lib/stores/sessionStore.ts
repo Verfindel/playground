@@ -1,3 +1,4 @@
-import { writable } from 'svelte/store'
+import { writable } from 'svelte/store';
+import type { AuthSession } from '@supabase/supabase-js';
 
-export const user = writable(false)
+export const clientSession = writable<AuthSession | null>(null);

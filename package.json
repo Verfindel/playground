@@ -39,8 +39,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@supabase/supabase-js": "^1.35.7",
-		"dotenv": "^16.0.3",
+		"@supabase/supabase-js": "^2.0.0-rc.10",
 		"pokenode-ts": "^1.17.0"
 	}
 }

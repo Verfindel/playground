@@ -1,24 +1,29 @@
 <script lang="ts">
-	import PokemonDetails from "./PokemonDetails.svelte";
-	import GenerationSelector from "./GenerationSelector.svelte";
-	import PokemonSelector from "./PokemonSelector.svelte";
+	import PokemonDetails from "./pokemonDetails.svelte";
+	import GenerationSelector from "./generationSelector.svelte";
+	import PokemonSelector from "./pokemonSelector.svelte";
+	import ChosenPokemon from "./chosenPokemon.svelte";
 </script>
 
 <div class="container">
     <div class="list-item">
         <GenerationSelector />
     </div>
-    <div class="list-item overflow-auto scrollbar">
+    <div>
+        <!-- class="list-item overflow-auto scrollbar" -->
         <PokemonSelector />
     </div>
     <div>
         <PokemonDetails class="list-item"/>
     </div>
+    <div >
+        <!-- class="list-item overflow-auto scrollbar" -->
+        <ChosenPokemon />
+    </div>
 </div>
 
 <style>
     .container{
-        padding-top: 15px;
         display: grid;
         overflow: hidden;
         grid-template-columns: repeat(2, 1fr);

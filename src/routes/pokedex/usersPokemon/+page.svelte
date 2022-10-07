@@ -1,38 +1,16 @@
 <script lang="ts">
-	import { selectedPokemon } from "$lib/stores/pokedexStore";
-	import { Avatar, Card, Heading } from "flowbite-svelte";
-	
-	let email : string;
+	import { selectedPokemon, chosenPokemon } from "$lib/stores/pokedexStore";
+	import type { ActionData } from "./$types";
+	import { Avatar, Card, Heading, Listgroup, ListgroupItem } from "flowbite-svelte";	
 
-	/** @type {import('./$types').ActionData} */
-	export let form : any;
+	export let form : ActionData
 
 	$: pokemon = $selectedPokemon;
-	$: types = pokemon ? pokemon.types : [];
 </script>
 
-{#if form?.success}
-	<form class="row flex-center flex" method="POST" action="?/login">
-		<div class="col-6 form-widget">
-		<h1 class="header">Supabase + Svelte</h1>
-		<p class="description">Sign in via magic link with your email below</p>
-		<div>
-			<input
-				class="inputField"
-				type="email"
-				placeholder="Your email"
-				bind:value="{email}"
-			/>
-		</div>
-		<div>
-			<input type="submit" class='button block' value={form?.success ? "Loading" :
-			"Send magic link"} disabled={form?.success} />
-		</div>
-		</div>
-	</form>
-{:else}
+<section>
 	{#if pokemon && pokemon != undefined && pokemon.id && pokemon.id > 0}
-		<form action="?/registerPokemon">
+		<form method="POST" action="?/registerPokemon">
 			<Card padding='sm'>
 				<Heading tag="h3">Store this pokemon?</Heading>
 				<div class="flex flex-col items-center pb-4">
@@ -40,7 +18,6 @@
 					<h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white">{pokemon.name}</h5>
 					<span class="text-sm text-gray-500 dark:text-gray-400">{pokemon.species.name}</span>
 					<input name="pokemonId" type="hidden" value="{pokemon.id}">
-					<input name="pokemonData" type="hidden" value="{JSON.stringify(types)}">
 					<div class="flex mt-4 space-x-3 lg:mt-6">				
 						<button>Register Pokemon</button>
 					</div>
@@ -48,6 +25,34 @@
 			</Card>
 		</form>
 	{:else}
-		<h1>Nothing to see here</h1>
+		<h1>No Pokemon to register</h1>
 	{/if}
-{/if}
+
+	{#if $chosenPokemon.length > 0}
+		<Heading tag="h3">Click to remove a Pokemon</Heading>
+		<Listgroup active class="w-48 overflow-auto scrollbar">
+			<form method="POST">
+				{#each $chosenPokemon as pokemon}
+					<input name="pokemonId" type="hidden" value="{pokemon.id}">
+					<button formaction="?/removePokemon">
+						<ListgroupItem class="text-base font-semibold gap-2"}>
+							<Avatar src="{pokemon.sprites.front_default ?? undefined}" size="xs"/>{pokemon.name}
+						</ListgroupItem>
+					</button>
+				{/each}
+			</form>
+		</Listgroup>
+	{:else}		
+		<h1>You haven't chosen any pokemon!</h1>
+	{/if}
+</section>
+
+<style>	
+    section {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+</style>
