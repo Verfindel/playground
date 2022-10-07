@@ -24,7 +24,9 @@
             <ul>
                 {#each $generationResource as generation}
                     <li class="list-content">
-                        <Button color="light" on:click={() => loadPokemon(generation.name)}>{formatName(generation.name)}</Button>
+                        <Button color="light" 
+                            on:click={() => loadPokemon(generation.name)}>{formatName(generation.name)}
+                        </Button>
                     </li>
                 {/each}
             </ul>

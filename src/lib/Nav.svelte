@@ -11,5 +11,8 @@
 		<NavLi href="/badjokes" active={activeUrl === "/badjokes"}>Bad Jokes</NavLi>
 		<NavLi href="/pokedex" active={activeUrl === "/pokedex"}>Pokedex</NavLi>
 		<NavLi href="/tileClicker" active={activeUrl === "/tileClicker"}>Tile Clicker</NavLi>
+		<nav>
+			<a href="/products" data-sveltekit-prefetch>Products</a>
+		</nav>
 	</NavUl>
 </Navbar>

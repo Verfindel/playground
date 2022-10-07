@@ -1,4 +1,3 @@
-import { error } from '@sveltejs/kit';
 import { GameClient } from "pokenode-ts";
 import { generationResource } from '$lib/stores/generationStore';
 import { get } from 'svelte/store'
@@ -15,6 +14,4 @@ export async function load() {
 	if (generations) {
 		generationResource.set(generations.results);
 	}
-	
-	throw error(404, 'Not found');
 }
