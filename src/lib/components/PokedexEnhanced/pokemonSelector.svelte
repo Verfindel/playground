@@ -16,6 +16,8 @@
             {/each}
         </Listgroup>
     </section>
+{:else}
+    <div>Couldn't find any pokemon</div>
 {/if}
 
 <style>    

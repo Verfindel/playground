@@ -1,8 +1,8 @@
 <script lang="ts">
-	import PokemonDetails from "./pokemonDetails.svelte";
-	import GenerationSelector from "./generationSelector.svelte";
-	import PokemonSelector from "./pokemonSelector.svelte";
-	import ChosenPokemon from "./chosenPokemon.svelte";
+	import PokemonDetails from "$lib/components/PokedexEnhanced/pokemonDetails.svelte";
+	import GenerationSelector from "$lib/components/PokedexEnhanced/generationSelector.svelte";
+	import PokemonSelector from "$lib/components/PokedexEnhanced/pokemonSelector.svelte";
+	import ChosenPokemon from "$lib/components/PokedexEnhanced/chosenPokemon.svelte";
 </script>
 
 <div class="container">
@@ -10,14 +10,12 @@
         <GenerationSelector />
     </div>
     <div>
-        <!-- class="list-item overflow-auto scrollbar" -->
         <PokemonSelector />
     </div>
     <div>
         <PokemonDetails class="list-item"/>
     </div>
     <div >
-        <!-- class="list-item overflow-auto scrollbar" -->
         <ChosenPokemon />
     </div>
 </div>

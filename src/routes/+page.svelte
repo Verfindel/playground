@@ -1,9 +1,29 @@
 <script>
-	import { Alert } from 'flowbite-svelte';
+	import { scale } from 'svelte/transition';
+	import { quintOut } from 'svelte/easing';
+	import { onMount } from 'svelte';
+
+	let animate = false;
+
+	onMount(() => {
+		animate = true;
+	});
 </script>
 
-<div class="p-8">
-	<Alert>
-		<span class="font-medium">Info alert!</span> Change a few things up and try submitting again.
-	</Alert>
-</div>
+{#if animate}
+	<div transition:scale="{{duration: 10000, delay: 100, opacity: 0.5, start: 0.2, easing: quintOut}}">
+		<h1 class="centered">Welcome to the show!</h1>
+	</div>
+{/if}
+
+<style>
+	div {
+		padding-top: 200px;
+		font-family: arial;
+		font-size: 50px;
+	}
+	.centered {
+		text-align: center;
+		color: white;
+	}
+</style>

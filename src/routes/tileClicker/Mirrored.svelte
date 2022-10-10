@@ -6,7 +6,7 @@
             tileStore.update((tiles) => {
                 const removeInterval = setInterval(() => {
                     const tile = tiles.shift() as HTMLElement;
-                    let mirroredTileId = parseInt(tile.id) + 9;
+                    let mirroredTileId = tile.id +"-mirror";
                     (document.getElementById(mirroredTileId.toString()) as HTMLElement).classList.remove("selected");
                     tile.classList.remove("selected");
                     if(tiles.length === 0){
@@ -25,9 +25,10 @@
     $: tiles = $tileStore;
     $: {
         if(tiles.length >= 9 && !triggered) {
+            console.log("triggered");
             tiles.forEach((tile, i) => {
                 setTimeout(() => {
-                    let mirroredTileId = parseInt(tile.id) + 9;
+                    let mirroredTileId = tile.id +"-mirror";
                     let mirroredTile = document.getElementById(mirroredTileId.toString()) as HTMLElement;
                     mirroredTile?.classList.add("selected");
                     

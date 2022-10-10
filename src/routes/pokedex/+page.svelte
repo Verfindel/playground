@@ -1,7 +1,7 @@
 <script lang="ts">
     import { clientSession } from "$lib/stores/sessionStore";
-	import Auth from "./Auth.svelte";
-	import LogOut from "./LogOut.svelte";
+	import Auth from "$lib/components/Auth.svelte";
+	import LogOut from "$lib/components/LogOut.svelte";
     import { supabase } from '$lib/clients/supabaseClient';
 	import { onMount } from "svelte";
 	import type { PageData } from "./$types";

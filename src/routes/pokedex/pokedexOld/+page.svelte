@@ -2,8 +2,8 @@
     import { populatePokemonStores, pokestore1, pokestore2 } from "$lib/stores/pokedexStore.svelte";
     import { Heading } from "flowbite-svelte"
     import { onMount } from "svelte";
-	import Pokemon1 from "./pokemon1.svelte";
-	import Pokemon2 from "./pokemon2.svelte";
+	import Pokemon1 from "$lib/components/PokedexOld/pokemon1.svelte";
+	import Pokemon2 from "$lib/components/PokedexOld/pokemon2.svelte";
 
     onMount(() => {
         populatePokemonStores();

@@ -1,6 +1,6 @@
 <script>
 	import '../app.postcss';
-	import Nav from '$lib/Nav.svelte';
+	import Nav from '$lib/components/Nav.svelte';
     import { DarkMode } from "flowbite-svelte";
 </script>
 
